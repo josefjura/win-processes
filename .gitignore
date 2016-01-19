@@ -38,3 +38,6 @@ js
 
 # Typings
 typings
+
+# JsDox output
+output
