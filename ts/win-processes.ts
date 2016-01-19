@@ -18,18 +18,21 @@ export class WinProcessesContext {
         return deff.promise;
     }
 
-    find(condition: (process: WinProcess) => boolean): WinProcess[] {
-        let processes = this.list();
-        let results = new Array<WinProcess>();
-        for (var pIndex in processes) {
-            if (processes.hasOwnProperty(pIndex)) {
-                var process = processes[pIndex];
-                if (condition(process)) {
-                    results.push(process);
+    find(condition: (process: WinProcess) => boolean): Q.Promise<WinProcess[]> {
+        var deff = Q.defer<WinProcess[]>();
+        this.list().then((processes) => {
+            let results = new Array<WinProcess>();
+            for (var pIndex in processes) {
+                if (processes.hasOwnProperty(pIndex)) {
+                    var process = processes[pIndex];
+                    if (condition(process)) {
+                        results.push(process);
+                    }
                 }
             }
-        }
-        return results;
+            deff.resolve(results);
+        });
+        return deff.promise;
     }
 
     kill(pid: string | string[]): boolean {
