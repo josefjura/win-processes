@@ -3,7 +3,6 @@ var assert = require('chai').assert;
 var spawn = require('child_process').spawn;
 var process;
 
-
 function runProcess() {
     process = spawn("charmap");
 }
@@ -99,4 +98,27 @@ describe('#find()', function () {
         });
     });
 
+});
+
+describe('#kill()', function () {
+    it('should kill a process', function () {
+        runProcess();
+        return winProc.find((prc) => {
+            return prc.PID == process.pid.toString();
+        }).then((result) => {
+            assert.equal(result.length, 1, "There should be one process with ImageName = charmap.exe");
+
+            winProc.kill(process.pid)
+                .then(() => {
+                    winProc.find((prc) => {
+                        prc.id == process.pid.toString();
+                    }).then((result) => {
+                        assert.equal(result.length, 0, "There should be no process with ImageName = charmap.exe");
+                    });
+                })
+                .fail(() => {
+                    assert.fail('Kill call failed');
+                });
+        });
+    });
 });
