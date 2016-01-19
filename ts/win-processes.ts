@@ -1,9 +1,20 @@
 /// <reference path="../typings/tsd.d.ts" />
-
+/**
+ * @description Test
+ */
 import proc = require('child_process');
 import Q = require('q');
 
+/**
+ * @class WinProcessesContext
+ */
 export class WinProcessesContext {
+
+    /**
+     * List all current processes
+     * @method List
+     * @returns {promise} Promise with resulting WinProcess array
+     */
     list(): Q.Promise<WinProcess[]> {
         var deff = Q.defer<WinProcess[]>();
         execute("tasklist /NH /fo csv")
@@ -18,6 +29,12 @@ export class WinProcessesContext {
         return deff.promise;
     }
 
+    /**
+     * Find specific process depending on a search function
+     * @method Find
+     * @param {function} condition Search callback. This function should contain the condition and every item will be tested against it.
+     * @returns {promise} Promise with resulting WinProcess array
+     */
     find(condition: (process: WinProcess) => boolean): Q.Promise<WinProcess[]> {
         var deff = Q.defer<WinProcess[]>();
         this.list().then((processes) => {
@@ -35,6 +52,12 @@ export class WinProcessesContext {
         return deff.promise;
     }
 
+    /**
+     * Kill a process
+     * @method Kill
+     * @param {string|string[]} pids One or many PIDs of processes to be killed
+     * @returns {promise}
+     */
     kill(pids: string | string[]) {
         var arr = Array<string>();
         if (typeof (pids) == 'string') arr.push(<string>pids);
@@ -56,6 +79,12 @@ export class WinProcessesContext {
         return deff.promise;
     }
 
+    /**
+     * Kill a process
+     * @method KillByName
+     * @param {string} name Name of the process to be killed
+     * @returns {promise}
+     */
     killByName(name: string) {
         var deff = Q.defer<void>();
         execute("taskkill /IM " + name)
@@ -68,7 +97,7 @@ export class WinProcessesContext {
         return deff.promise;
     }
 
-    parseTaskList(input: Buffer): WinProcess[] {
+    private parseTaskList(input: Buffer): WinProcess[] {
         let results = new Array<WinProcess>();
         var lines = input.toString().split("\r\n");
 
