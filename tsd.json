@@ -16,6 +16,15 @@
     },
     "node/node.d.ts": {
       "commit": "bdaf2f0eb19edee26248c80bab4947e9b70e4217"
+    },
+    "chai/chai.d.ts": {
+      "commit": "93bae1bb4c887c1375a4c1f0c3bb849ff06b8ac6"
+    },
+    "assertion-error/assertion-error.d.ts": {
+      "commit": "93bae1bb4c887c1375a4c1f0c3bb849ff06b8ac6"
+    },
+    "mocha/mocha.d.ts": {
+      "commit": "93bae1bb4c887c1375a4c1f0c3bb849ff06b8ac6"
     }
   }
 }
