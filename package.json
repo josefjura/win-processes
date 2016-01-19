@@ -1,0 +1,33 @@
+{
+  "name": "win-processes",
+  "version": "0.1.0",
+  "description": "Node module for working with windows processes",
+  "main": "js/win-processes.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josefjura/win-processes.git"
+  },
+  "keywords": [
+    "windows",
+    "process",
+    "node"
+  ],
+  "author": "Josef Jura",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/josefjura/win-processes/issues"
+  },
+  "homepage": "https://github.com/josefjura/win-processes#readme",
+    "devDependencies": {
+    "fs-jetpack": "^0.7.1",
+    "gulp": "^3.9.0",
+    "gulp-typescript": "^2.10.0",
+    "merge2": "^0.3.6",
+    "tsc": "^1.20150623.0",
+    "tsd": "^0.6.5",
+    "typescript": "^1.7.5"
+  }
+}
