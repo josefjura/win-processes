@@ -35,8 +35,37 @@ export class WinProcessesContext {
         return deff.promise;
     }
 
-    kill(pid: string | string[]): boolean {
-        return false;
+    kill(pids: string | string[]) {
+        var arr = Array<string>();
+        if (typeof (pids) == 'string') arr.push(<string>pids);
+        else if (pids instanceof Array) arr = <string[]>pids;
+        var cmd = "taskkill";
+
+        arr.forEach(pid => {
+            cmd += " /PID " + pid;
+        });
+
+        var deff = Q.defer<void>();
+        execute(cmd)
+            .then((stdout) => {
+                deff.resolve();
+            })
+            .fail((err) => {
+                deff.reject("Something went wrong: " + err);
+            });
+        return deff.promise;
+    }
+
+    killByName(name: string) {
+        var deff = Q.defer<void>();
+        execute("taskkill /IM " + name)
+            .then((stdout) => {
+                deff.resolve();
+            })
+            .fail((err) => {
+                deff.reject("Something went wrong: " + err);
+            });
+        return deff.promise;
     }
 
     parseTaskList(input: Buffer): WinProcess[] {
