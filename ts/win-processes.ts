@@ -1,7 +1,5 @@
 /// <reference path="../typings/tsd.d.ts" />
-/**
- * @description Test
- */
+
 import proc = require('child_process');
 import Q = require('q');
 
@@ -13,7 +11,7 @@ export class WinProcessesContext {
     /**
      * List all current processes
      * @method List
-     * @returns {promise} Promise with resulting WinProcess array
+     * @returns {Promise} Promise with resulting WinProcess array
      */
     list(): Q.Promise<WinProcess[]> {
         var deff = Q.defer<WinProcess[]>();
@@ -33,7 +31,7 @@ export class WinProcessesContext {
      * Find specific process depending on a search function
      * @method Find
      * @param {function} condition Search callback. This function should contain the condition and every item will be tested against it.
-     * @returns {promise} Promise with resulting WinProcess array
+     * @returns {Promise} Promise with resulting WinProcess array
      */
     find(condition: (process: WinProcess) => boolean): Q.Promise<WinProcess[]> {
         var deff = Q.defer<WinProcess[]>();
@@ -56,7 +54,7 @@ export class WinProcessesContext {
      * Kill a process
      * @method Kill
      * @param {string|string[]} pids One or many PIDs of processes to be killed
-     * @returns {promise}
+     * @returns {Promise}
      */
     kill(pids: string | string[]) {
         var arr = Array<string>();
@@ -83,7 +81,7 @@ export class WinProcessesContext {
      * Kill a process
      * @method KillByName
      * @param {string} name Name of the process to be killed
-     * @returns {promise}
+     * @returns {Promise}
      */
     killByName(name: string) {
         var deff = Q.defer<void>();
@@ -111,16 +109,33 @@ export class WinProcessesContext {
     }
 }
 
+/**
+ * @class WinProcess
+ * Class representing a windows process.
+ * @property ImageName
+ * @property PID
+ * @property SessionName
+ * @property SessionNumber
+ * @property MemoryUsage
+ */
 export class WinProcess {
+
     ImageName: string;
+
     PID: string;
+
     SessionName: string;
+
     SessionNumber: string;
+
     MemoryUsage: string;
 
+    /**
+     * @constructor
+     * @param Line from tasklist to parse
+     */
     constructor(line: string) {
         var values = line.split(',');
-
         this.ImageName = this.stripQuotes(values[0]);
         this.PID = this.stripQuotes(values[1]);
         this.SessionName = this.stripQuotes(values[2]);
