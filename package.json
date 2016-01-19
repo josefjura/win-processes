@@ -1,7 +1,7 @@
 {
   "name": "win-processes",
   "version": "0.1.0",
-  "description": "Node module for working with windows processes",
+  "description": "Node module for working with windows processes outside node",
   "main": "js/win-processes.js",
   "scripts": {
     "test": "npm test"
