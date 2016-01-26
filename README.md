@@ -3,6 +3,21 @@ Node module for working with windows processes
 
 Simple few commands that can be used to interact with Windows processes. Feel free to add, fix and contribute
 
+## Examples
+
+```js
+var wProc = require('win-processes').wproc;
+```
+
+### Read full list of processes
+
+```js
+wProc.list().then(function (result) {
+        gUtils.log(result);
+    })
+```
+
+
 ## API
 
 ## Class: WinProcessesContext
