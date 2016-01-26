@@ -1,4 +1,4 @@
-# win-processes
+# win-processes [![npm version](https://badge.fury.io/js/win-processes.svg)](https://badge.fury.io/js/win-processes)
 Node module for working with windows processes
 
 Simple few commands that can be used to interact with Windows processes. Feel free to add, fix and contribute
