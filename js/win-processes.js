@@ -53,13 +53,15 @@ var WinProcessesContext = (function () {
      * @param {string|string[]} pids One or many PIDs of processes to be killed
      * @returns {Promise}
      */
-    WinProcessesContext.prototype.kill = function (pids) {
+    WinProcessesContext.prototype.kill = function (pids, force) {
         var arr = Array();
         if (typeof (pids) == 'string')
             arr.push(pids);
         else if (pids instanceof Array)
             arr = pids;
         var cmd = "taskkill";
+        if (force)
+            cmd += " /F";
         arr.forEach(function (pid) {
             cmd += " /PID " + pid;
         });
@@ -79,9 +81,12 @@ var WinProcessesContext = (function () {
      * @param {string} name Name of the process to be killed
      * @returns {Promise}
      */
-    WinProcessesContext.prototype.killByName = function (name) {
+    WinProcessesContext.prototype.killByName = function (name, force) {
         var deff = Q.defer();
-        execute("taskkill /IM " + name)
+        var cmd = "taskkill";
+        if (force)
+            cmd += " /F";
+        execute(cmd + " /IM " + name)
             .then(function (stdout) {
             deff.resolve();
         })

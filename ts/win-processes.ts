@@ -56,11 +56,13 @@ export class WinProcessesContext {
      * @param {string|string[]} pids One or many PIDs of processes to be killed
      * @returns {Promise}
      */
-    kill(pids: string | string[]) {
+    kill(pids: string | string[], force : boolean) {
         var arr = Array<string>();
         if (typeof (pids) == 'string') arr.push(<string>pids);
         else if (pids instanceof Array) arr = <string[]>pids;
         var cmd = "taskkill";
+
+        if (force) cmd += " /F"
 
         arr.forEach(pid => {
             cmd += " /PID " + pid;
@@ -83,9 +85,14 @@ export class WinProcessesContext {
      * @param {string} name Name of the process to be killed
      * @returns {Promise}
      */
-    killByName(name: string) {
+    killByName(name: string, force: boolean) {
         var deff = Q.defer<void>();
-        execute("taskkill /IM " + name)
+
+        var cmd = "taskkill";
+
+        if (force) cmd += " /F"
+
+        execute(cmd + " /IM " + name)
             .then((stdout) => {
                 deff.resolve();
             })
