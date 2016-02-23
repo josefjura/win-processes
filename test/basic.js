@@ -122,3 +122,16 @@ describe('#kill()', function () {
         });
     });
 });
+
+describe('#isRunning()', function () {
+    it('should find one process with image name explorer.exe', function () {
+        return winProc.isRunning('explorer.exe').then((result) => {
+            assert.isTrue(result, "There should be one process with ImageName = explorer.exe");
+        });
+    });
+    it('should find no process with image name nonexistent.exe', function () {
+        return winProc.isRunning('nonexistent.exe').then((result) => {
+            assert.isFalse(result, "There should be no process with ImageName = nonexistent.exe");
+        });
+    });
+});
