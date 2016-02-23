@@ -8,6 +8,22 @@ var WinProcessesContext = (function () {
     function WinProcessesContext() {
     }
     /**
+     * Checks if process is currently running
+     * @method IsRunning
+     * @returns {Promise} Promise with resulting boolean representing current status of the process
+     */
+    WinProcessesContext.prototype.isRunning = function (processName) {
+        var deff = Q.defer();
+        this.find(function (prc) {
+            return prc.ImageName == processName;
+        }).then(function (results) {
+            deff.resolve(results.length > 0);
+        }, function (err) {
+            deff.reject(err);
+        });
+        return deff.promise;
+    };
+    /**
      * List all current processes
      * @method List
      * @returns {Promise} Promise with resulting WinProcess array

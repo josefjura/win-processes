@@ -7,6 +7,23 @@ import Q = require('q');
  * @class WinProcessesContext
  */
 export class WinProcessesContext {
+    /**
+     * Checks if process is currently running
+     * @method IsRunning
+     * @returns {Promise} Promise with resulting boolean representing current status of the process
+     */
+    isRunning(processName: string): Q.Promise<boolean> {
+        var deff = Q.defer<boolean>();
+        this.find((prc) => {
+            return prc.ImageName == processName;
+        }).then((results)=>{
+            deff.resolve(results.length > 0);
+        }, (err)=>{
+            deff.reject(err);
+        });
+        return deff.promise;
+    }
+
 
     /**
      * List all current processes
@@ -56,7 +73,7 @@ export class WinProcessesContext {
      * @param {string|string[]} pids One or many PIDs of processes to be killed
      * @returns {Promise}
      */
-    kill(pids: string | string[], force : boolean) {
+    kill(pids: string | string[], force: boolean) {
         var arr = Array<string>();
         if (typeof (pids) == 'string') arr.push(<string>pids);
         else if (pids instanceof Array) arr = <string[]>pids;
