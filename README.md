@@ -17,10 +17,28 @@ wProc.list().then(function (result) {
     })
 ```
 
+### Check if process is running
+
+```js
+wProc.isRunning("processName.exe").then(function (result) {
+        if (result){
+            console.log("Process is running");
+        }else {
+            console.log("Process is not running");
+        }
+    });
+```
+
 
 ## API
 
 ## Class: WinProcessesContext
+
+### WinProcessesContext.IsRunning(processName)
+
+Checks if process is currently running
+
+**Returns**: `Promise`, Promise with resulting boolean
 
 #### WinProcessesContext.List()
 
