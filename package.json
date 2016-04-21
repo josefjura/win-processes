@@ -21,6 +21,9 @@
     "url": "https://github.com/josefjura/win-processes/issues"
   },
   "homepage": "https://github.com/josefjura/win-processes#readme",
+  "dependencies": {
+    "q": "^1.4.1"
+  },
   "devDependencies": {
     "chai": "^3.4.1",
     "fs-jetpack": "^0.7.1",
